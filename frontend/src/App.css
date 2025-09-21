@@ -1,0 +1,73 @@
+.app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  min-height: 100vh;
+  color: #e0e0e0;
+}
+
+h1 {
+  color: #ffd700;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.card {
+  padding: 2em;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  border: 2px solid #ffd700;
+  margin: 2rem 0;
+  backdrop-filter: blur(10px);
+}
+
+button {
+  background: linear-gradient(45deg, #ff6b6b, #ffd700);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #1a1a2e;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.message {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: rgba(0, 255, 0, 0.1);
+  border: 1px solid #00ff00;
+  border-radius: 8px;
+}
+
+.message h3 {
+  color: #00ff00;
+  margin-bottom: 0.5rem;
+}
+
+.message p {
+  font-size: 1.1rem;
+  color: #e0e0e0;
+}
+
+.read-the-docs {
+  color: #888;
+  font-style: italic;
+  margin-top: 2rem;
+}
