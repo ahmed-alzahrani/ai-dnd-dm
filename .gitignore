@@ -1,0 +1,7 @@
+# Frontend dependencies
+frontend/node_modules/
+
+# Spring Boot build outputs
+game-engine/build/
+game-engine/.gradle/
+
