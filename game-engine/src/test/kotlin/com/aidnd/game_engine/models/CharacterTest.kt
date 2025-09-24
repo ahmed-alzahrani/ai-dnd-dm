@@ -1,5 +1,7 @@
 package com.aidnd.game_engine.models
 
+import com.aidnd.game_engine.models.races.Human
+import com.aidnd.game_engine.models.races.Elf
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
@@ -10,7 +12,7 @@ class CharacterTest {
         id: Int = 1,
         name: String = "Mob",
         level: Int = 5,
-        race: String = "Human",
+        race: Race = Human(),
         characterClass: String = "Barbarian",
         maxHealth: Int = 45,
         strength: Int = 16,
@@ -33,7 +35,7 @@ class CharacterTest {
         
         assertEquals("Mob", character.name)
         assertEquals(5, character.level)
-        assertEquals("Human", character.race)
+        assertEquals("Human", character.race.name)
         assertEquals("Barbarian", character.characterClass)
         assertEquals(45, character.maxHealth)
         assertEquals(45, character.currentHealth)
@@ -50,7 +52,7 @@ class CharacterTest {
     @Test
     fun `should use default level of 1 when not specified`() {
         val character = Character(
-            id = 1, name = "Test", race = "Human", characterClass = "Fighter",
+            id = 1, name = "Test", race = Human(), characterClass = "Fighter",
             maxHealth = 50, strength = 10, dexterity = 10, constitution = 10,
             intelligence = 10, wisdom = 10, charisma = 10, armorClass = 10
         )
@@ -72,7 +74,7 @@ class CharacterTest {
         assertEquals(character.id, response.id)
         assertEquals(character.name, response.name)
         assertEquals(character.level, response.level)
-        assertEquals(character.race, response.race)
+        assertEquals(character.race.name, response.race)
         assertEquals(character.characterClass, response.characterClass)
         assertEquals(character.maxHealth, response.maxHealth)
         assertEquals(character.currentHealth, response.currentHealth)
@@ -83,5 +85,25 @@ class CharacterTest {
         assertEquals(character.wisdom, response.wisdom)
         assertEquals(character.charisma, response.charisma)
         assertEquals(character.armorClass, response.armorClass)
+    }
+
+    @Test
+    fun `should apply race bonuses to ability scores`() {
+        val character = validCharacter(race = Elf(), strength = 10, dexterity = 14)
+        
+        // Elf gets +2 Dexterity
+        assertEquals(10, character.strength)  // No bonus
+        assertEquals(16, character.getAbilityScore(AbilityScore.DEXTERITY))  // 14 + 2
+        assertEquals(3, character.getAbilityModifier(AbilityScore.DEXTERITY))  // (16-10)/2 = 3
+    }
+
+    @Test
+    fun `should apply human bonuses to all ability scores`() {
+        val character = validCharacter(race = Human(), strength = 10, dexterity = 10, constitution = 10)
+        
+        // Human gets +1 to all abilities
+        assertEquals(11, character.getAbilityScore(AbilityScore.STRENGTH))  // 10 + 1
+        assertEquals(11, character.getAbilityScore(AbilityScore.DEXTERITY))  // 10 + 1
+        assertEquals(11, character.getAbilityScore(AbilityScore.CONSTITUTION))  // 10 + 1
     }
 }
