@@ -4,13 +4,14 @@ import com.aidnd.game_engine.dto.CreateCharacterRequest
 import com.aidnd.game_engine.dto.CharacterResponse
 import com.aidnd.game_engine.dto.UpdateCharacterRequest
 import com.aidnd.game_engine.models.Character
+import com.aidnd.game_engine.models.Race
+import com.aidnd.game_engine.models.CharacterClass
 import org.springframework.stereotype.Service
 
 @Service
 class CharacterService {
     
     private val party = mutableMapOf<Int, Character>()
-    
     
     fun createCharacter(request: CreateCharacterRequest): CharacterResponse {
         // Check if character with this ID already exists
@@ -22,9 +23,8 @@ class CharacterService {
             id = request.id,
             name = request.name,
             level = request.level,
-            race = request.race,
-            characterClass = request.characterClass,
-            maxHealth = request.maxHealth,
+            race = Race.fromString(request.race),
+            characterClass = CharacterClass.fromString(request.characterClass),
             strength = request.strength,
             dexterity = request.dexterity,
             constitution = request.constitution,
@@ -48,9 +48,8 @@ class CharacterService {
         
         request.name?.let { character.name = it }
         request.level?.let { character.level = it }
-        request.race?.let { character.race = it }
-        request.characterClass?.let { character.characterClass = it }
-        request.maxHealth?.let { character.maxHealth = it }
+        request.race?.let { character.race = Race.fromString(it) }
+        request.characterClass?.let { character.characterClass = CharacterClass.fromString(it) }
         request.currentHealth?.let { character.currentHealth = it }
         request.strength?.let { character.strength = it }
         request.dexterity?.let { character.dexterity = it }
