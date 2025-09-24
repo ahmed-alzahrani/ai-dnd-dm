@@ -18,12 +18,10 @@ data class UpdateCharacterRequest(
     val armorClass: Int? = null
 ) {
     init {
-        // Validate only non-null values
         name?.let { CharacterValidation.validateString(value = it, fieldName = "Name") }
         race?.let { CharacterValidation.validateString(value = it, fieldName = "Race") }
         characterClass?.let { CharacterValidation.validateString(value = it, fieldName = "Class") }
         
-        // Collect all non-null ability scores for validation
         val abilityScores = listOfNotNull(strength, dexterity, constitution, intelligence, wisdom, charisma)
         if (abilityScores.isNotEmpty()) {
             CharacterValidation.validateAbilityScores(*abilityScores.toIntArray())
