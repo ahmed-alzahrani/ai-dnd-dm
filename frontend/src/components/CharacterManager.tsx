@@ -9,7 +9,7 @@ interface Character {
   maxHealth: number
   currentHealth: number
   strength: number
-  dexterity: Int
+  dexterity: number
   constitution: number
   intelligence: number
   wisdom: number
