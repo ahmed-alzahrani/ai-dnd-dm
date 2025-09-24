@@ -20,10 +20,9 @@ class CharacterServiceTest {
     private fun validCreateRequest(
         id: Int = 1,
         name: String = "Mob",
-        level: Int = 5,
+        level: Int = 1,
         race: String = "Human",
         characterClass: String = "Barbarian",
-        maxHealth: Int = 45,
         strength: Int = 16,
         dexterity: Int = 14,
         constitution: Int = 15,
@@ -33,7 +32,7 @@ class CharacterServiceTest {
         armorClass: Int = 13
     ) = CreateCharacterRequest(
         id = id, name = name, level = level, race = race, characterClass = characterClass,
-        maxHealth = maxHealth, strength = strength, dexterity = dexterity,
+        strength = strength, dexterity = dexterity,
         constitution = constitution, intelligence = intelligence, wisdom = wisdom,
         charisma = charisma, armorClass = armorClass
     )
@@ -46,11 +45,12 @@ class CharacterServiceTest {
         
         assertEquals(1, response.id)
         assertEquals("Mob", response.name)
-        assertEquals(5, response.level)
+        assertEquals(1, response.level)
         assertEquals("Human", response.race)
         assertEquals("Barbarian", response.characterClass)
-        assertEquals(45, response.maxHealth)
-        assertEquals(45, response.currentHealth)
+        // Barbarian (d12) + Human Constitution bonus (15+1=16, modifier=+3) = 12 + 3 = 15 HP
+        assertEquals(15, response.maxHealth)
+        assertEquals(15, response.currentHealth)
     }
 
     @Test
@@ -90,16 +90,16 @@ class CharacterServiceTest {
         
         val updateRequest = UpdateCharacterRequest(
             name = "Updated Mob",
-            level = 6,
-            currentHealth = 30
+            level = 2,
+            currentHealth = 10
         )
         
         val response = characterService.updateCharacter(id = 1, request = updateRequest)
         
         assertEquals("Updated Mob", response.name)
-        assertEquals(6, response.level)
-        assertEquals(30, response.currentHealth)
-        assertEquals(45, response.maxHealth)
+        assertEquals(2, response.level)
+        assertEquals(10, response.currentHealth)
+        assertEquals(15, response.maxHealth)
     }
 
     @Test
@@ -112,8 +112,8 @@ class CharacterServiceTest {
         val response = characterService.updateCharacter(id = 1, request = updateRequest)
         
         assertEquals("New Name", response.name)
-        assertEquals(5, response.level)
-        assertEquals(45, response.maxHealth)
+        assertEquals(1, response.level)
+        assertEquals(15, response.maxHealth)
     }
 
     @Test

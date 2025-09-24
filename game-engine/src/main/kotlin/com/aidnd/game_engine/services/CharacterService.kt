@@ -5,6 +5,7 @@ import com.aidnd.game_engine.dto.CharacterResponse
 import com.aidnd.game_engine.dto.UpdateCharacterRequest
 import com.aidnd.game_engine.models.Character
 import com.aidnd.game_engine.models.Race
+import com.aidnd.game_engine.models.CharacterClass
 import org.springframework.stereotype.Service
 
 @Service
@@ -23,8 +24,7 @@ class CharacterService {
             name = request.name,
             level = request.level,
             race = Race.fromString(request.race),
-            characterClass = request.characterClass,
-            maxHealth = request.maxHealth,
+            characterClass = CharacterClass.fromString(request.characterClass),
             strength = request.strength,
             dexterity = request.dexterity,
             constitution = request.constitution,
@@ -49,8 +49,7 @@ class CharacterService {
         request.name?.let { character.name = it }
         request.level?.let { character.level = it }
         request.race?.let { character.race = Race.fromString(it) }
-        request.characterClass?.let { character.characterClass = it }
-        request.maxHealth?.let { character.maxHealth = it }
+        request.characterClass?.let { character.characterClass = CharacterClass.fromString(it) }
         request.currentHealth?.let { character.currentHealth = it }
         request.strength?.let { character.strength = it }
         request.dexterity?.let { character.dexterity = it }

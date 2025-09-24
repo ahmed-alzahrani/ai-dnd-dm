@@ -17,7 +17,7 @@ class Character(
     var charisma: Int,
     var armorClass: Int
 ) {
-    val maxHealth: Int = characterClass.healthDice.sides + getAbilityModifier(AbilityScore.CONSTITUTION)
+    var maxHealth: Int = characterClass.healthDice.sides + getAbilityModifier(AbilityScore.CONSTITUTION)
     var currentHealth: Int = maxHealth
 
     init {
