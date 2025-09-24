@@ -10,5 +10,6 @@ data class Elf(
     override val speed: Int = 30,
     override val abilityScoreBonuses: Map<AbilityScore, Int> = mapOf(
         AbilityScore.DEXTERITY to 2
-    )
+    ),
+    override val darkVision: Int = 60
 ) : Race

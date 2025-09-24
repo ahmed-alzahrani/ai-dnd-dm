@@ -8,8 +8,7 @@ class Character(
     var name: String,
     var level: Int = 1,
     var race: Race,
-    var characterClass: String,
-    var maxHealth: Int,
+    var characterClass: CharacterClass,
     var strength: Int,
     var dexterity: Int,
     var constitution: Int,
@@ -18,13 +17,12 @@ class Character(
     var charisma: Int,
     var armorClass: Int
 ) {
+    val maxHealth: Int = characterClass.healthDice.sides + getAbilityModifier(AbilityScore.CONSTITUTION)
     var currentHealth: Int = maxHealth
 
     init {
         CharacterValidation.validateString(value = name, fieldName = "Name")
-        CharacterValidation.validateString(value = characterClass, fieldName = "Class")
         CharacterValidation.validateAbilityScores(strength, dexterity, constitution, intelligence, wisdom, charisma)
-        CharacterValidation.validateAboveZero(value = maxHealth, fieldName = "Max Health")
         CharacterValidation.validateAboveZero(value = level, fieldName = "Level")
         CharacterValidation.validateAboveZero(value = armorClass, fieldName = "Armor Class")
     }
@@ -44,6 +42,8 @@ class Character(
     fun getAbilityModifier(ability: AbilityScore): Int {
         return ability.getModifier(getAbilityScore(ability))
     }
+    
+    fun getDarkVision(): Int = race.darkVision
 
     fun toResponse(): CharacterResponse {
         return CharacterResponse(
@@ -51,7 +51,7 @@ class Character(
             name = this.name,
             level = this.level,
             race = this.race.name,
-            characterClass = this.characterClass,
+            characterClass = this.characterClass.name,
             maxHealth = this.maxHealth,
             currentHealth = this.currentHealth,
             strength = this.strength,

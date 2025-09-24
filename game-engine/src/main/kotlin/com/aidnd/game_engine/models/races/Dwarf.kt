@@ -10,5 +10,6 @@ data class Dwarf(
     override val speed: Int = 25,
     override val abilityScoreBonuses: Map<AbilityScore, Int> = mapOf(
         AbilityScore.CONSTITUTION to 2
-    )
+    ),
+    override val darkVision: Int = 60
 ) : Race

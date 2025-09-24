@@ -7,6 +7,7 @@ interface Race {
     val size: Size
     val speed: Int
     val abilityScoreBonuses: Map<AbilityScore, Int>
+    val darkVision: Int get() = 0
     
     companion object {
         fun fromString(raceString: String): Race {

@@ -106,4 +106,13 @@ class CharacterTest {
         assertEquals(11, character.getAbilityScore(AbilityScore.DEXTERITY))  // 10 + 1
         assertEquals(11, character.getAbilityScore(AbilityScore.CONSTITUTION))  // 10 + 1
     }
+
+    @Test
+    fun `should return correct darkvision from race`() {
+        val human = validCharacter(race = Human())
+        val elf = validCharacter(race = Elf())
+        
+        assertEquals(0, human.getDarkVision())
+        assertEquals(60, elf.getDarkVision())
+    }
 }
