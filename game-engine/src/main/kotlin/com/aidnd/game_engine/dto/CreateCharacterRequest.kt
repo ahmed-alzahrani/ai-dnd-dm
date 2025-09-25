@@ -13,8 +13,7 @@ data class CreateCharacterRequest(
     val constitution: Int,
     val intelligence: Int,
     val wisdom: Int,
-    val charisma: Int,
-    val armorClass: Int
+    val charisma: Int
 ) {
     init {
         CharacterValidation.validateString(value = name, fieldName = "Name")
@@ -23,6 +22,5 @@ data class CreateCharacterRequest(
         CharacterValidation.validateAbilityScores(strength, dexterity, constitution, intelligence, wisdom, charisma)
         CharacterValidation.validateAboveZero(value = id, fieldName = "ID")
         CharacterValidation.validateAboveZero(value = level, fieldName = "Level")
-        CharacterValidation.validateAboveZero(value = armorClass, fieldName = "Armor Class")
     }
 }

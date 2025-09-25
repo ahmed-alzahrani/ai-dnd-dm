@@ -30,8 +30,7 @@ class CharacterService {
             constitution = request.constitution,
             intelligence = request.intelligence,
             wisdom = request.wisdom,
-            charisma = request.charisma,
-            armorClass = request.armorClass
+            charisma = request.charisma
         )
         
         party[request.id] = character

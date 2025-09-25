@@ -28,13 +28,12 @@ class CharacterServiceTest {
         constitution: Int = 15,
         intelligence: Int = 8,
         wisdom: Int = 12,
-        charisma: Int = 10,
-        armorClass: Int = 13
+        charisma: Int = 10
     ) = CreateCharacterRequest(
         id = id, name = name, level = level, race = race, characterClass = characterClass,
         strength = strength, dexterity = dexterity,
         constitution = constitution, intelligence = intelligence, wisdom = wisdom,
-        charisma = charisma, armorClass = armorClass
+        charisma = charisma
     )
 
     @Test
@@ -51,6 +50,8 @@ class CharacterServiceTest {
         // Barbarian (d12) + Human Constitution bonus (15+1=16, modifier=+3) = 12 + 3 = 15 HP
         assertEquals(15, response.maxHealth)
         assertEquals(15, response.currentHealth)
+        // Base AC: 10 + DEX modifier (14+1=15, modifier=+2) = 10 + 2 = 12
+        assertEquals(12, response.armorClass)
     }
 
     @Test
