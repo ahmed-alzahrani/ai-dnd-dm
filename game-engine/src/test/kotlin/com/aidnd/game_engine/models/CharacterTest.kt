@@ -10,25 +10,24 @@ import kotlin.test.assertEquals
 
 class CharacterTest {
 
-    private fun validCharacter(
-        id: Int = 1,
-        name: String = "Mob",
-        level: Int = 1,
-        race: Race = Human(),
-        characterClass: CharacterClass = Barbarian(),
-        strength: Int = 16,
-        dexterity: Int = 14,
-        constitution: Int = 15,
-        intelligence: Int = 8,
-        wisdom: Int = 12,
-        charisma: Int = 10,
-        armorClass: Int = 13
-    ) = Character(
-        id = id, name = name, level = level, race = race, characterClass = characterClass,
-        strength = strength, dexterity = dexterity,
-        constitution = constitution, intelligence = intelligence, wisdom = wisdom,
-        charisma = charisma, armorClass = armorClass
-    )
+        private fun validCharacter(
+            id: Int = 1,
+            name: String = "Mob",
+            level: Int = 1,
+            race: Race = Human(),
+            characterClass: CharacterClass = Barbarian(),
+            strength: Int = 16,
+            dexterity: Int = 14,
+            constitution: Int = 15,
+            intelligence: Int = 8,
+            wisdom: Int = 12,
+            charisma: Int = 10
+        ) = Character(
+            id = id, name = name, level = level, race = race, characterClass = characterClass,
+            strength = strength, dexterity = dexterity,
+            constitution = constitution, intelligence = intelligence, wisdom = wisdom,
+            charisma = charisma
+        )
 
     @Test
     fun `should create valid character with all valid values`() {
@@ -41,7 +40,8 @@ class CharacterTest {
         assertEquals(15, character.maxHealth)
         assertEquals(15, character.currentHealth)
         assertEquals(16, character.strength)
-        assertEquals(13, character.armorClass)
+        // Base AC: 10 + DEX modifier
+        assertEquals(12, character.armorClass)
     }
 
     @Test
@@ -56,7 +56,7 @@ class CharacterTest {
         val character = Character(
             id = 1, name = "Test", race = Human(), characterClass = Barbarian(),
             strength = 10, dexterity = 10, constitution = 10,
-            intelligence = 10, wisdom = 10, charisma = 10, armorClass = 10
+            intelligence = 10, wisdom = 10, charisma = 10
         )
         assertEquals(1, character.level)
     }

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './CharacterManager.css'
 
 interface Character {
   id: number
@@ -21,6 +22,7 @@ export default function CharacterManager() {
   const [characters, setCharacters] = useState<Character[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [showCreateForm, setShowCreateForm] = useState<boolean>(false)
+  const [nextId, setNextId] = useState<number>(1)
 
   const fetchParty = async () => {
     setLoading(true)
@@ -37,7 +39,7 @@ export default function CharacterManager() {
     }
   }
 
-  const createCharacter = async (characterData: Omit<Character, 'currentHealth'>) => {
+  const createCharacter = async (characterData: Omit<Character, 'currentHealth' | 'maxHealth' | 'armorClass'>) => {
     setLoading(true)
     try {
       const response = await fetch('http://localhost:8080/api/characters', {
@@ -51,6 +53,7 @@ export default function CharacterManager() {
       if (response.ok) {
         const newCharacter = await response.json()
         setCharacters([...characters, newCharacter])
+        setNextId(prev => prev + 1)
         setShowCreateForm(false)
       }
     } catch (error) {
@@ -126,6 +129,7 @@ export default function CharacterManager() {
         <CreateCharacterForm 
           onSubmit={createCharacter}
           onCancel={() => setShowCreateForm(false)}
+          nextId={nextId}
         />
       )}
     </div>
@@ -133,26 +137,60 @@ export default function CharacterManager() {
 }
 
 interface CreateCharacterFormProps {
-  onSubmit: (character: Omit<Character, 'currentHealth'>) => void
+  onSubmit: (character: Omit<Character, 'currentHealth' | 'maxHealth' | 'armorClass'>) => void
   onCancel: () => void
+  nextId: number
 }
 
-function CreateCharacterForm({ onSubmit, onCancel }: CreateCharacterFormProps) {
+function CreateCharacterForm({ onSubmit, onCancel, nextId }: CreateCharacterFormProps) {
   const [formData, setFormData] = useState({
-    id: 1,
+    id: nextId,
     name: '',
-    level: 1,
     race: '',
     characterClass: '',
-    maxHealth: 10,
-    strength: 10,
-    dexterity: 10,
-    constitution: 10,
-    intelligence: 10,
-    wisdom: 10,
-    charisma: 10,
-    armorClass: 10
+    strength: 8,
+    dexterity: 8,
+    constitution: 8,
+    intelligence: 8,
+    wisdom: 8,
+    charisma: 8
   })
+
+  const races = ['Human', 'Elf', 'Dwarf', 'Halfling', 'Dragonborn', 'Gnome']
+  const classes = ['Barbarian', 'Bard', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin', 'Ranger', 'Rogue', 'Sorcerer', 'Warlock', 'Wizard']
+
+  // Point Buy costs (8 is free, each increase costs points)
+  const getPointCost = (score: number): number => {
+    if (score <= 8) return 0
+    if (score <= 13) return score - 8
+    if (score === 14) return 7
+    if (score === 15) return 9
+    return 0 // Can't go above 15
+  }
+
+  const getTotalPointsSpent = (): number => {
+    const abilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'] as const
+    return abilities.reduce((total, ability) => {
+      return total + getPointCost(formData[ability])
+    }, 0)
+  }
+
+  const remainingPoints = 27 - getTotalPointsSpent()
+
+  const canIncrease = (ability: keyof typeof formData): boolean => {
+    return formData[ability] < 15 && remainingPoints > 0
+  }
+
+  const canDecrease = (ability: keyof typeof formData): boolean => {
+    return formData[ability] > 8
+  }
+
+  const adjustAbility = (ability: keyof typeof formData, delta: number) => {
+    const newValue = formData[ability] + delta
+    if (newValue >= 8 && newValue <= 15) {
+      setFormData(prev => ({ ...prev, [ability]: newValue }))
+    }
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -169,15 +207,6 @@ function CreateCharacterForm({ onSubmit, onCancel }: CreateCharacterFormProps) {
       <form onSubmit={handleSubmit} className="character-form">
         <div className="form-row">
           <label>
-            ID:
-            <input 
-              type="number" 
-              value={formData.id}
-              onChange={(e) => handleChange('id', parseInt(e.target.value) || 1)}
-              min="1"
-            />
-          </label>
-          <label>
             Name:
             <input 
               type="text" 
@@ -187,79 +216,93 @@ function CreateCharacterForm({ onSubmit, onCancel }: CreateCharacterFormProps) {
               required
             />
           </label>
-        </div>
-        
-        <div className="form-row">
-          <label>
-            Level:
-            <input 
-              type="number" 
-              value={formData.level}
-              onChange={(e) => handleChange('level', parseInt(e.target.value) || 1)}
-              min="1"
-            />
-          </label>
           <label>
             Race:
-            <input 
-              type="text" 
+            <select 
               value={formData.race}
               onChange={(e) => handleChange('race', e.target.value)}
-              maxLength="20"
               required
-            />
+            >
+              <option value="">Select Race</option>
+              {races.map(race => (
+                <option key={race} value={race}>{race}</option>
+              ))}
+            </select>
           </label>
         </div>
         
         <div className="form-row">
           <label>
             Class:
-            <input 
-              type="text" 
+            <select 
               value={formData.characterClass}
               onChange={(e) => handleChange('characterClass', e.target.value)}
-              maxLength="20"
               required
-            />
-          </label>
-          <label>
-            Max Health:
-            <input 
-              type="number" 
-              value={formData.maxHealth}
-              onChange={(e) => handleChange('maxHealth', parseInt(e.target.value) || 10)}
-              min="1"
-            />
+            >
+              <option value="">Select Class</option>
+              {classes.map(cls => (
+                <option key={cls} value={cls}>{cls}</option>
+              ))}
+            </select>
           </label>
         </div>
         
-        <div className="form-row">
-          <label>
-            Armor Class:
-            <input 
-              type="number" 
-              value={formData.armorClass}
-              onChange={(e) => handleChange('armorClass', parseInt(e.target.value) || 10)}
-              min="1"
-            />
-          </label>
-        </div>
-        
-        <div className="ability-scores-input">
-          <h4>Ability Scores (1-20):</h4>
+        <div className="point-buy-section">
+          <h4>Point Buy Ability Scores</h4>
+          <div className="points-remaining">
+            <strong>Points Remaining: {remainingPoints}/27</strong>
+            {remainingPoints < 0 && <span className="error">⚠️ Over budget!</span>}
+          </div>
+          
           <div className="ability-grid">
-            {['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'].map(ability => (
-              <label key={ability}>
-                {ability.toUpperCase().substring(0, 3)}:
-                <input 
-                  type="number" 
-                  value={formData[ability as keyof typeof formData] as number}
-                  onChange={(e) => handleChange(ability, parseInt(e.target.value) || 10)}
-                  min="1"
-                  max="20"
-                />
-              </label>
-            ))}
+            {['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'].map(ability => {
+              const score = formData[ability as keyof typeof formData] as number
+              const modifier = Math.floor((score - 10) / 2)
+              const pointsSpent = getPointCost(score)
+              
+              return (
+                <div key={ability} className="ability-score">
+                  <label>{ability.toUpperCase().substring(0, 3)}</label>
+                  <div className="score-controls">
+                    <button 
+                      type="button"
+                      onClick={() => adjustAbility(ability as keyof typeof formData, -1)}
+                      disabled={!canDecrease(ability as keyof typeof formData)}
+                      className="adjust-btn"
+                    >
+                      -
+                    </button>
+                    <div className="score-display">
+                      <div className="score-value">{score}</div>
+                      <div className="modifier">
+                        {modifier >= 0 ? '+' : ''}{modifier}
+                      </div>
+                      <div className="points-cost">
+                        {pointsSpent > 0 ? `${pointsSpent}pt${pointsSpent > 1 ? 's' : ''}` : ''}
+                      </div>
+                    </div>
+                    <button 
+                      type="button"
+                      onClick={() => adjustAbility(ability as keyof typeof formData, 1)}
+                      disabled={!canIncrease(ability as keyof typeof formData)}
+                      className="adjust-btn"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+          
+          <div className="point-buy-help">
+            <small>
+              <strong>Point Buy Rules:</strong> Start at 8 (0 points). 
+              Scores 9-13 cost 1 point each. 
+              Score 14 costs 7 points. 
+              Score 15 costs 9 points. 
+              Maximum 15, minimum 8.
+            </small>
           </div>
         </div>
         

@@ -14,17 +14,16 @@ class Character(
     var constitution: Int,
     var intelligence: Int,
     var wisdom: Int,
-    var charisma: Int,
-    var armorClass: Int
+    var charisma: Int
 ) {
     var maxHealth: Int = characterClass.healthDice.sides + getAbilityModifier(AbilityScore.CONSTITUTION)
     var currentHealth: Int = maxHealth
+    var armorClass: Int = 10 + getAbilityModifier(AbilityScore.DEXTERITY) // Base AC: 10 + DEX modifier
 
     init {
         CharacterValidation.validateString(value = name, fieldName = "Name")
         CharacterValidation.validateAbilityScores(strength, dexterity, constitution, intelligence, wisdom, charisma)
         CharacterValidation.validateAboveZero(value = level, fieldName = "Level")
-        CharacterValidation.validateAboveZero(value = armorClass, fieldName = "Armor Class")
     }
 
     fun getAbilityScore(ability: AbilityScore): Int {
