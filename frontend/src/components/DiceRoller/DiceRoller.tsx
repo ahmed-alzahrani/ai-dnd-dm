@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './DiceRoller.css'
 
 interface DiceSpec {
   sides: number
