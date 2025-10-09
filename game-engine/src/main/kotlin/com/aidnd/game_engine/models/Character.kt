@@ -1,8 +1,8 @@
 package com.aidnd.game_engine.models
 
-import com.aidnd.game_engine.validation.CharacterValidation
 import com.aidnd.game_engine.dto.CharacterResponse
 import com.aidnd.game_engine.models.equipment.Equipment
+import com.aidnd.game_engine.validation.CharacterValidation
 
 class Character(
     val id: Int,

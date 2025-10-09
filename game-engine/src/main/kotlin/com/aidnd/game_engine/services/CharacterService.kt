@@ -1,11 +1,7 @@
 package com.aidnd.game_engine.services
 
-import com.aidnd.game_engine.dto.CreateCharacterRequest
-import com.aidnd.game_engine.dto.CharacterResponse
-import com.aidnd.game_engine.dto.UpdateCharacterRequest
-import com.aidnd.game_engine.models.Character
-import com.aidnd.game_engine.models.Race
-import com.aidnd.game_engine.models.CharacterClass
+import com.aidnd.game_engine.dto.*
+import com.aidnd.game_engine.models.*
 import org.springframework.stereotype.Service
 
 @Service

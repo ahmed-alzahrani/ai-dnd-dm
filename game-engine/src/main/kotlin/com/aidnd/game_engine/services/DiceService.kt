@@ -1,11 +1,10 @@
 package com.aidnd.game_engine.services
-import org.springframework.stereotype.Service
 
 import com.aidnd.game_engine.dto.DiceRollRequest
-import com.aidnd.game_engine.models.DiceSpec
-
 import com.aidnd.game_engine.dto.DiceRollResponse
 import com.aidnd.game_engine.models.DiceResult
+import com.aidnd.game_engine.models.DiceSpec
+import org.springframework.stereotype.Service
 
 @Service
 class DiceService {

@@ -1,10 +1,9 @@
 package com.aidnd.game_engine.controllers
 
-import org.springframework.web.bind.annotation.*
-
 import com.aidnd.game_engine.dto.DiceRollRequest
 import com.aidnd.game_engine.dto.DiceRollResponse
 import com.aidnd.game_engine.services.DiceService
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api")
