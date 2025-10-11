@@ -16,7 +16,8 @@ class EquipmentTest {
         assertNull(equipment.offHand)
         assertNull(equipment.armor)
         assertNull(equipment.head)
-        assertTrue(equipment.getItems().isEmpty())
+        assertEquals(12, equipment.getAllItems().size)
+        assertTrue(equipment.getEquippedItems().isEmpty())
     }
 
     @Test
@@ -25,7 +26,7 @@ class EquipmentTest {
             name = "Longsword",
             weight = 3.0,
             value = 15,
-            damageDice = DiceType.D8,
+            damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
         val equipment = Equipment()
@@ -77,7 +78,7 @@ class EquipmentTest {
             name = "Longsword",
             weight = 3.0,
             value = 15,
-            damageDice = DiceType.D8,
+            damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
         val equipment = Equipment().equipItem(EquipmentSlot.MAIN_HAND, sword)
@@ -104,12 +105,30 @@ class EquipmentTest {
     }
 
     @Test
-    fun `should get all equipped items with slots`() {
+    fun `should get all slots including empty ones`() {
         val sword = Weapon(
             name = "Longsword",
             weight = 3.0,
             value = 15,
-            damageDice = DiceType.D8,
+            damageDice = DiceType.d8,
+            damageType = DamageType.SLASHING
+        )
+        val equipment = Equipment().equipItem(EquipmentSlot.MAIN_HAND, sword)
+
+        val allItems = equipment.getAllItems()
+
+        assertEquals(12, allItems.size)
+        assertTrue(allItems.any { it.first == EquipmentSlot.MAIN_HAND && it.second?.name == "Longsword" })
+        assertTrue(allItems.any { it.first == EquipmentSlot.OFF_HAND && it.second == null })
+    }
+
+    @Test
+    fun `should get only equipped items without nulls`() {
+        val sword = Weapon(
+            name = "Longsword",
+            weight = 3.0,
+            value = 15,
+            damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
         val shield = Shield(
@@ -123,11 +142,11 @@ class EquipmentTest {
             .equipItem(EquipmentSlot.MAIN_HAND, sword)
             .equipItem(EquipmentSlot.OFF_HAND, shield)
 
-        val items = equipment.getItems()
+        val equippedItems = equipment.getEquippedItems()
 
-        assertEquals(2, items.size)
-        assertTrue(items.any { it.first == EquipmentSlot.MAIN_HAND && it.second?.name == "Longsword" })
-        assertTrue(items.any { it.first == EquipmentSlot.OFF_HAND && it.second?.name == "Shield" })
+        assertEquals(2, equippedItems.size)
+        assertTrue(equippedItems.any { it.first == EquipmentSlot.MAIN_HAND && it.second.name == "Longsword" })
+        assertTrue(equippedItems.any { it.first == EquipmentSlot.OFF_HAND && it.second.name == "Shield" })
     }
 
     @Test
@@ -136,14 +155,14 @@ class EquipmentTest {
             name = "Shortsword",
             weight = 2.0,
             value = 10,
-            damageDice = DiceType.D6,
+            damageDice = DiceType.d6,
             damageType = DamageType.PIERCING
         )
         val sword2 = Weapon(
             name = "Longsword",
             weight = 3.0,
             value = 15,
-            damageDice = DiceType.D8,
+            damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
         val equipment = Equipment().equipItem(EquipmentSlot.MAIN_HAND, sword1)

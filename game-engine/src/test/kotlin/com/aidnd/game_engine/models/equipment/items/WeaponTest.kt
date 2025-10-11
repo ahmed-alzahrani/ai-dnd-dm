@@ -15,14 +15,14 @@ class WeaponTest {
             name = "Longsword",
             weight = 3.0,
             value = 15,
-            damageDice = DiceType.D8,
+            damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
 
         assertEquals("Longsword", sword.name)
         assertEquals(3.0, sword.weight)
         assertEquals(15, sword.value)
-        assertEquals(DiceType.D8, sword.damageDice)
+        assertEquals(DiceType.d8, sword.damageDice)
         assertEquals(DamageType.SLASHING, sword.damageType)
         assertEquals(ItemType.WEAPON, sword.itemType)
         assertNull(sword.buffs)
@@ -37,7 +37,7 @@ class WeaponTest {
             value = 5000,
             description = "A sword wreathed in flames",
             buffs = ItemBuffs(attack = 1, damage = 2),
-            damageDice = DiceType.D8,
+            damageDice = DiceType.d8,
             damageType = DamageType.FIRE
         )
 

@@ -1,5 +1,6 @@
 package com.aidnd.game_engine.models
 
+import com.aidnd.game_engine.models.enums.DiceType
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
