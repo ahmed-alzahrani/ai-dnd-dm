@@ -1,9 +1,9 @@
 package com.aidnd.game_engine.models
 
-import com.aidnd.game_engine.models.races.Human
-import com.aidnd.game_engine.models.races.Elf
 import com.aidnd.game_engine.models.classes.Barbarian
 import com.aidnd.game_engine.models.classes.Wizard
+import com.aidnd.game_engine.models.races.Elf
+import com.aidnd.game_engine.models.races.Human
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals

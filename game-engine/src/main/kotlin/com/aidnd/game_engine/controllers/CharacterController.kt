@@ -1,10 +1,8 @@
 package com.aidnd.game_engine.controllers
 
-import org.springframework.web.bind.annotation.*
-import com.aidnd.game_engine.dto.CreateCharacterRequest
-import com.aidnd.game_engine.dto.CharacterResponse
-import com.aidnd.game_engine.dto.UpdateCharacterRequest
+import com.aidnd.game_engine.dto.*
 import com.aidnd.game_engine.services.CharacterService
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api")

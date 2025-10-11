@@ -1,6 +1,8 @@
 package com.aidnd.game_engine.models
 
 import com.aidnd.game_engine.models.classes.*
+import com.aidnd.game_engine.models.enums.ArmorProficiency
+import com.aidnd.game_engine.models.enums.DiceType
 
 interface CharacterClass {
     val name: String

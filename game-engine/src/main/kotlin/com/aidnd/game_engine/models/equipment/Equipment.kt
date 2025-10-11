@@ -67,7 +67,7 @@ data class Equipment(
         }
     }
 
-    fun getItems(): List<Pair<EquipmentSlot, Item?>> {
+    fun getAllItems(): List<Pair<EquipmentSlot, Item?>> {
         return listOf(
             EquipmentSlot.MAIN_HAND to mainHand,
             EquipmentSlot.OFF_HAND to offHand,
@@ -82,5 +82,11 @@ data class Equipment(
             EquipmentSlot.BACK to back,
             EquipmentSlot.WRIST to wrist
         )
+    }
+
+    fun getEquippedItems(): List<Pair<EquipmentSlot, Item>> {
+        return getAllItems()
+            .filter { it.second != null }
+            .map { it.first to it.second!! }
     }
 }

@@ -1,7 +1,8 @@
 package com.aidnd.game_engine.models
 
-import com.aidnd.game_engine.validation.CharacterValidation
 import com.aidnd.game_engine.dto.CharacterResponse
+import com.aidnd.game_engine.models.equipment.Equipment
+import com.aidnd.game_engine.validation.CharacterValidation
 
 class Character(
     val id: Int,
@@ -19,6 +20,7 @@ class Character(
     var maxHealth: Int = characterClass.healthDice.sides + getAbilityModifier(AbilityScore.CONSTITUTION)
     var currentHealth: Int = maxHealth
     var armorClass: Int = 10 + getAbilityModifier(AbilityScore.DEXTERITY) // Base AC: 10 + DEX modifier
+    var equipment: Equipment = Equipment() // Character starts with no equipment
 
     init {
         CharacterValidation.validateString(value = name, fieldName = "Name")

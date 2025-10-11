@@ -1,9 +1,9 @@
 package com.aidnd.game_engine.models.classes
 
 import com.aidnd.game_engine.models.AbilityScore
-import com.aidnd.game_engine.models.ArmorProficiency
 import com.aidnd.game_engine.models.CharacterClass
-import com.aidnd.game_engine.models.DiceType
+import com.aidnd.game_engine.models.enums.ArmorProficiency
+import com.aidnd.game_engine.models.enums.DiceType
 
 data class Sorcerer(
     override val name: String = "Sorcerer",

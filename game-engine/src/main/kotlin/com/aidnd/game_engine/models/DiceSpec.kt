@@ -1,5 +1,7 @@
 package com.aidnd.game_engine.models
 
+import com.aidnd.game_engine.models.enums.DiceType
+
 data class DiceSpec(
     val sides: Int,
     val count: Int
