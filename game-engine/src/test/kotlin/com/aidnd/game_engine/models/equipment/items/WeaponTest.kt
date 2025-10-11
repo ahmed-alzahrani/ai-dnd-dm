@@ -2,6 +2,7 @@ package com.aidnd.game_engine.models.equipment.items
 
 import com.aidnd.game_engine.models.equipment.ItemBuffs
 import com.aidnd.game_engine.models.equipment.enums.ItemType
+import com.aidnd.game_engine.models.equipment.enums.WeaponType
 import com.aidnd.game_engine.models.enums.*
 import org.junit.jupiter.api.Test
 import kotlin.test.*

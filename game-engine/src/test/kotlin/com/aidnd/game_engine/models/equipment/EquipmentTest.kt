@@ -159,17 +159,17 @@ class EquipmentTest {
             name = "Shortsword",
             weight = 2.0,
             value = 10,
+            weaponType = WeaponType.SHORTSWORD,
             damageDice = DiceType.d6,
-            damageType = DamageType.PIERCING,
-            proficiencyRequired = WeaponProficiency.MARTIAL
+            damageType = DamageType.PIERCING
         )
         val sword2 = Weapon(
             name = "Longsword",
             weight = 3.0,
             value = 15,
+            weaponType = WeaponType.LONGSWORD,
             damageDice = DiceType.d8,
-            damageType = DamageType.SLASHING,
-            proficiencyRequired = WeaponProficiency.MARTIAL
+            damageType = DamageType.SLASHING
         )
         val equipment = Equipment().equipItem(EquipmentSlot.MAIN_HAND, sword1)
 
