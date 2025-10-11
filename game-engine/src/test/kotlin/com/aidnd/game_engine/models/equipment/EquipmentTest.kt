@@ -94,7 +94,7 @@ class EquipmentTest {
             name = "Ring of Protection",
             weight = 0.1,
             value = 5000,
-            buffs = ItemBuffs(ac = 1)
+            buffs = ItemBuffs(armorClass = 1)
         )
         val equipment = Equipment().equipItem(EquipmentSlot.RING_LEFT, ring)
 

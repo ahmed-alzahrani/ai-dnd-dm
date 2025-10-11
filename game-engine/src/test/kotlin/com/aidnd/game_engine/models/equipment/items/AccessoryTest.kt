@@ -27,11 +27,11 @@ class AccessoryTest {
             name = "Ring of Protection",
             weight = 0.1,
             value = 5000,
-            buffs = ItemBuffs(ac = 1)
+            buffs = ItemBuffs(armorClass = 1)
         )
 
         assertEquals("Ring of Protection", ring.name)
-        assertEquals(1, ring.buffs?.ac)
+        assertEquals(1, ring.buffs?.armorClass)
     }
 
     @Test
@@ -40,11 +40,11 @@ class AccessoryTest {
             name = "Belt of Hill Giant Strength",
             weight = 1.0,
             value = 8000,
-            buffs = ItemBuffs(str = 4)
+            buffs = ItemBuffs(strength = 4)
         )
 
         assertEquals("Belt of Hill Giant Strength", belt.name)
-        assertEquals(4, belt.buffs?.str)
+        assertEquals(4, belt.buffs?.strength)
     }
 
     @Test
@@ -53,11 +53,11 @@ class AccessoryTest {
             name = "Ring of Power",
             weight = 0.1,
             value = 10000,
-            buffs = ItemBuffs(ac = 1, str = 2, dex = 1)
+            buffs = ItemBuffs(armorClass = 1, strength = 2, dexterity = 1)
         )
 
-        assertEquals(1, magicRing.buffs?.ac)
-        assertEquals(2, magicRing.buffs?.str)
-        assertEquals(1, magicRing.buffs?.dex)
+        assertEquals(1, magicRing.buffs?.armorClass)
+        assertEquals(2, magicRing.buffs?.strength)
+        assertEquals(1, magicRing.buffs?.dexterity)
     }
 }
