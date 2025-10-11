@@ -26,6 +26,7 @@ class EquipmentTest {
             name = "Longsword",
             weight = 3.0,
             value = 15,
+            weaponType = WeaponType.LONGSWORD,
             damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
@@ -78,6 +79,7 @@ class EquipmentTest {
             name = "Longsword",
             weight = 3.0,
             value = 15,
+            weaponType = WeaponType.LONGSWORD,
             damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
@@ -110,6 +112,7 @@ class EquipmentTest {
             name = "Longsword",
             weight = 3.0,
             value = 15,
+            weaponType = WeaponType.LONGSWORD,
             damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
@@ -128,6 +131,7 @@ class EquipmentTest {
             name = "Longsword",
             weight = 3.0,
             value = 15,
+            weaponType = WeaponType.LONGSWORD,
             damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
@@ -156,14 +160,16 @@ class EquipmentTest {
             weight = 2.0,
             value = 10,
             damageDice = DiceType.d6,
-            damageType = DamageType.PIERCING
+            damageType = DamageType.PIERCING,
+            proficiencyRequired = WeaponProficiency.MARTIAL
         )
         val sword2 = Weapon(
             name = "Longsword",
             weight = 3.0,
             value = 15,
             damageDice = DiceType.d8,
-            damageType = DamageType.SLASHING
+            damageType = DamageType.SLASHING,
+            proficiencyRequired = WeaponProficiency.MARTIAL
         )
         val equipment = Equipment().equipItem(EquipmentSlot.MAIN_HAND, sword1)
 

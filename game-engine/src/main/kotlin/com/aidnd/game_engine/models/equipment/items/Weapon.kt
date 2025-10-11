@@ -1,10 +1,10 @@
 package com.aidnd.game_engine.models.equipment.items
 
-import com.aidnd.game_engine.models.enums.DamageType
-import com.aidnd.game_engine.models.enums.DiceType
+import com.aidnd.game_engine.models.enums.*
 import com.aidnd.game_engine.models.equipment.Item
 import com.aidnd.game_engine.models.equipment.ItemBuffs
 import com.aidnd.game_engine.models.equipment.enums.ItemType
+import com.aidnd.game_engine.models.equipment.enums.WeaponType
 
 data class Weapon(
     override val name: String,
@@ -12,6 +12,7 @@ data class Weapon(
     override val value: Int,
     override val description: String? = null,
     override val buffs: ItemBuffs? = null,
+    val weaponType: WeaponType,
     val damageDice: DiceType,
     val damageType: DamageType
 ) : Item {
