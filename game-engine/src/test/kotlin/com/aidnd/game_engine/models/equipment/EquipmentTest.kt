@@ -26,6 +26,7 @@ class EquipmentTest {
             name = "Longsword",
             weight = 3.0,
             value = 15,
+            weaponType = WeaponType.LONGSWORD,
             damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
@@ -78,6 +79,7 @@ class EquipmentTest {
             name = "Longsword",
             weight = 3.0,
             value = 15,
+            weaponType = WeaponType.LONGSWORD,
             damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
@@ -110,6 +112,7 @@ class EquipmentTest {
             name = "Longsword",
             weight = 3.0,
             value = 15,
+            weaponType = WeaponType.LONGSWORD,
             damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
@@ -128,6 +131,7 @@ class EquipmentTest {
             name = "Longsword",
             weight = 3.0,
             value = 15,
+            weaponType = WeaponType.LONGSWORD,
             damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
@@ -155,6 +159,7 @@ class EquipmentTest {
             name = "Shortsword",
             weight = 2.0,
             value = 10,
+            weaponType = WeaponType.SHORTSWORD,
             damageDice = DiceType.d6,
             damageType = DamageType.PIERCING
         )
@@ -162,6 +167,7 @@ class EquipmentTest {
             name = "Longsword",
             weight = 3.0,
             value = 15,
+            weaponType = WeaponType.LONGSWORD,
             damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )

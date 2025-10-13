@@ -1,14 +1,16 @@
 package com.aidnd.game_engine.models
 
 import com.aidnd.game_engine.models.classes.*
-import com.aidnd.game_engine.models.enums.ArmorProficiency
-import com.aidnd.game_engine.models.enums.DiceType
+import com.aidnd.game_engine.models.enums.*
+import com.aidnd.game_engine.models.equipment.enums.WeaponType
 
 interface CharacterClass {
     val name: String
     val healthDice: DiceType
     val primaryAbility: AbilityScore
     val armorProficiency: ArmorProficiency
+    val weaponProficiencies: Set<WeaponProficiency>
+    val specificWeaponProficiencies: Set<WeaponType> get() = emptySet()
     
     companion object {
         fun fromString(className: String): CharacterClass {
