@@ -1,5 +1,6 @@
 package com.aidnd.game_engine.models.equipment.items
 
+import com.aidnd.game_engine.dto.equipment.ShieldResponse
 import com.aidnd.game_engine.models.equipment.Item
 import com.aidnd.game_engine.models.equipment.ItemBuffs
 import com.aidnd.game_engine.models.equipment.enums.ShieldType
@@ -13,5 +14,14 @@ data class Shield(
     val shieldType: ShieldType,
     val armorClassBonus: Int
 ) : Item {
-
+    fun toResponse(): ShieldResponse {
+        return ShieldResponse(
+            name = this.name,
+            weight = this.weight,
+            value = this.value,
+            description = this.description,
+            shieldType = this.shieldType.name,
+            armorClassBonus = this.armorClassBonus
+        )
+    }
 }

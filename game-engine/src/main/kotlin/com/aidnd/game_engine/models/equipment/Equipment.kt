@@ -1,5 +1,6 @@
 package com.aidnd.game_engine.models.equipment
 
+import com.aidnd.game_engine.dto.equipment.EquipmentResponse
 import com.aidnd.game_engine.models.equipment.enums.EquipmentSlot
 import com.aidnd.game_engine.models.equipment.items.*
 
@@ -100,5 +101,22 @@ data class Equipment(
         return getAllItems()
             .filter { it.second != null }
             .map { it.first to it.second!! }
+    }
+    
+    fun toResponse(): EquipmentResponse {
+        return EquipmentResponse(
+            mainHand = mainHand?.toResponse(),
+            offHand = offHand?.toResponse(),
+            armor = armor?.toResponse(),
+            head = head?.toResponse(),
+            neck = neck?.toResponse(),
+            hands = hands?.toResponse(),
+            feet = feet?.toResponse(),
+            ringLeft = ringLeft?.toResponse(),
+            ringRight = ringRight?.toResponse(),
+            belt = belt?.toResponse(),
+            back = back?.toResponse(),
+            wrist = wrist?.toResponse()
+        )
     }
 }

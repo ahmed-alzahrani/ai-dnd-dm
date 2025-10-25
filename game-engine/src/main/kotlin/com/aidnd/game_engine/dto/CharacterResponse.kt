@@ -1,5 +1,7 @@
 package com.aidnd.game_engine.dto
 
+import com.aidnd.game_engine.dto.equipment.EquipmentResponse
+
 data class CharacterResponse(
     val id: Int,
     val name: String,
@@ -14,5 +16,6 @@ data class CharacterResponse(
     val intelligence: Int,
     val wisdom: Int,
     val charisma: Int,
-    val armorClass: Int
+    val armorClass: Int,
+    val equipment: EquipmentResponse
 )

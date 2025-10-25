@@ -1,5 +1,6 @@
 package com.aidnd.game_engine.models.equipment.items
 
+import com.aidnd.game_engine.dto.equipment.ArmorResponse
 import com.aidnd.game_engine.models.enums.ArmorProficiency
 import com.aidnd.game_engine.models.equipment.Item
 import com.aidnd.game_engine.models.equipment.ItemBuffs
@@ -16,4 +17,17 @@ data class Armor(
     val baseAC: Int,
     val maxDexBonus: Int? = null,
     val stealthDisadvantage: Boolean = false
-) : Item
+) : Item {
+    fun toResponse(): ArmorResponse {
+        return ArmorResponse(
+            name = this.name,
+            weight = this.weight,
+            value = this.value,
+            description = this.description,
+            armorType = this.armorType.name,
+            baseAC = this.baseAC,
+            maxDexBonus = this.maxDexBonus,
+            stealthDisadvantage = this.stealthDisadvantage
+        )
+    }
+}

@@ -70,7 +70,8 @@ class Character(
             intelligence = this.intelligence,
             wisdom = this.wisdom,
             charisma = this.charisma,
-            armorClass = this.armorClass
+            armorClass = this.armorClass,
+            equipment = this.equipment.toResponse()
         )
     }
 
