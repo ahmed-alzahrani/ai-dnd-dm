@@ -3,8 +3,9 @@ package com.aidnd.game_engine.models
 import com.aidnd.game_engine.dto.CharacterResponse
 import com.aidnd.game_engine.models.equipment.Equipment
 import com.aidnd.game_engine.models.equipment.StartingEquipmentFactory
-import com.aidnd.game_engine.models.equipment.items.Weapon
+import com.aidnd.game_engine.models.equipment.items.*
 import com.aidnd.game_engine.validation.CharacterValidation
+import kotlin.math.min
 
 class Character(
     val id: Int,
@@ -21,8 +22,8 @@ class Character(
 ) {
     var maxHealth: Int = characterClass.healthDice.sides + getAbilityModifier(AbilityScore.CONSTITUTION)
     var currentHealth: Int = maxHealth
-    var armorClass: Int = 10 + getAbilityModifier(AbilityScore.DEXTERITY) // Base AC: 10 + DEX modifier
     var equipment: Equipment = StartingEquipmentFactory.getEquipmentForClass(characterClass)
+    var armorClass: Int = calculateArmorClass()
 
     init {
         CharacterValidation.validateString(value = name, fieldName = "Name")
@@ -71,5 +72,26 @@ class Character(
             charisma = this.charisma,
             armorClass = this.armorClass
         )
+    }
+
+    private fun calculateArmorClass(): Int {
+        val armor = equipment.armor
+        val shield = equipment.offHand
+        
+        // Base AC from armor or default to 10
+        val baseAC = armor?.baseAC ?: 10
+        
+        // DEX modifier (capped by armor's maxDexBonus if applicable)
+        val dexModifier = if (armor?.maxDexBonus != null) {
+            min(getAbilityModifier(AbilityScore.DEXTERITY), armor.maxDexBonus)
+        } else {
+            getAbilityModifier(AbilityScore.DEXTERITY)
+        }
+        
+        val shieldBonus = shield?.armorClassBonus ?: 0
+        
+        val equipmentBuff = (armor?.buffs?.armorClass ?: 0) + (shield?.buffs?.armorClass ?: 0)
+        
+        return baseAC + dexModifier + shieldBonus + equipmentBuff
     }
 }

@@ -1,20 +1,21 @@
 package com.aidnd.game_engine.models.equipment
 
 import com.aidnd.game_engine.models.equipment.enums.EquipmentSlot
+import com.aidnd.game_engine.models.equipment.items.*
 
 data class Equipment(
-    val mainHand: Item? = null,
-    val offHand: Item? = null,
-    val armor: Item? = null,
-    val head: Item? = null,
-    val neck: Item? = null,
-    val hands: Item? = null,
-    val feet: Item? = null,
-    val ringLeft: Item? = null,
-    val ringRight: Item? = null,
-    val belt: Item? = null,
-    val back: Item? = null,
-    val wrist: Item? = null
+    val mainHand: Weapon? = null,
+    val offHand: Shield? = null,
+    val armor: Armor? = null,
+    val head: Helm? = null,
+    val neck: Amulet? = null,
+    val hands: Gloves? = null,
+    val feet: Boots? = null,
+    val ringLeft: Ring? = null,
+    val ringRight: Ring? = null,
+    val belt: Belt? = null,
+    val back: Cloak? = null,
+    val wrist: Bracers? = null
 ) {
     fun getItemInSlot(slot: EquipmentSlot): Item? {
         return when (slot) {
@@ -33,22 +34,33 @@ data class Equipment(
         }
     }
 
-    fun equipItem(slot: EquipmentSlot, item: Item): Equipment {
+    fun equipWeapon(weapon: Weapon): Equipment = copy(mainHand = weapon)
+    
+    fun equipShield(shield: Shield): Equipment = copy(offHand = shield)
+    
+    fun equipArmor(armor: Armor): Equipment = copy(armor = armor)
+    
+    fun equipRing(ring: Ring, slot: EquipmentSlot): Equipment {
         return when (slot) {
-            EquipmentSlot.MAIN_HAND -> copy(mainHand = item)
-            EquipmentSlot.OFF_HAND -> copy(offHand = item)
-            EquipmentSlot.ARMOR -> copy(armor = item)
-            EquipmentSlot.HEAD -> copy(head = item)
-            EquipmentSlot.NECK -> copy(neck = item)
-            EquipmentSlot.HANDS -> copy(hands = item)
-            EquipmentSlot.FEET -> copy(feet = item)
-            EquipmentSlot.RING_LEFT -> copy(ringLeft = item)
-            EquipmentSlot.RING_RIGHT -> copy(ringRight = item)
-            EquipmentSlot.BELT -> copy(belt = item)
-            EquipmentSlot.BACK -> copy(back = item)
-            EquipmentSlot.WRIST -> copy(wrist = item)
+            EquipmentSlot.RING_LEFT -> copy(ringLeft = ring)
+            EquipmentSlot.RING_RIGHT -> copy(ringRight = ring)
+            else -> throw IllegalArgumentException("Can only equip rings to RING_LEFT or RING_RIGHT")
         }
     }
+    
+    fun equipHelm(helm: Helm): Equipment = copy(head = helm)
+    
+    fun equipAmulet(amulet: Amulet): Equipment = copy(neck = amulet)
+    
+    fun equipGloves(gloves: Gloves): Equipment = copy(hands = gloves)
+    
+    fun equipBoots(boots: Boots): Equipment = copy(feet = boots)
+    
+    fun equipBelt(belt: Belt): Equipment = copy(belt = belt)
+    
+    fun equipCloak(cloak: Cloak): Equipment = copy(back = cloak)
+    
+    fun equipBracers(bracers: Bracers): Equipment = copy(wrist = bracers)
 
     fun unequipItem(slot: EquipmentSlot): Equipment {
         return when (slot) {

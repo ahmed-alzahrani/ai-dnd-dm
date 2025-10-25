@@ -32,7 +32,7 @@ class EquipmentTest {
         )
         val equipment = Equipment()
 
-        val updated = equipment.equipItem(EquipmentSlot.MAIN_HAND, sword)
+        val updated = equipment.equipWeapon(sword)
 
         assertNotNull(updated.mainHand)
         assertEquals("Longsword", updated.mainHand?.name)
@@ -50,7 +50,7 @@ class EquipmentTest {
         )
         val equipment = Equipment()
 
-        val updated = equipment.equipItem(EquipmentSlot.ARMOR, leather)
+        val updated = equipment.equipArmor(leather)
 
         assertNotNull(updated.armor)
         assertEquals("Leather Armor", updated.armor?.name)
@@ -67,7 +67,7 @@ class EquipmentTest {
         )
         val equipment = Equipment()
 
-        val updated = equipment.equipItem(EquipmentSlot.OFF_HAND, shield)
+        val updated = equipment.equipShield(shield)
 
         assertNotNull(updated.offHand)
         assertEquals("Shield", updated.offHand?.name)
@@ -83,7 +83,7 @@ class EquipmentTest {
             damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
-        val equipment = Equipment().equipItem(EquipmentSlot.MAIN_HAND, sword)
+        val equipment = Equipment().equipWeapon(sword)
 
         val updated = equipment.unequipItem(EquipmentSlot.MAIN_HAND)
 
@@ -92,13 +92,13 @@ class EquipmentTest {
 
     @Test
     fun `should get item in specific slot`() {
-        val ring = Accessory(
+        val ring = Ring(
             name = "Ring of Protection",
             weight = 0.1,
             value = 5000,
             buffs = ItemBuffs(armorClass = 1)
         )
-        val equipment = Equipment().equipItem(EquipmentSlot.RING_LEFT, ring)
+        val equipment = Equipment().equipRing(ring, EquipmentSlot.RING_LEFT)
 
         val item = equipment.getItemInSlot(EquipmentSlot.RING_LEFT)
 
@@ -116,7 +116,7 @@ class EquipmentTest {
             damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
-        val equipment = Equipment().equipItem(EquipmentSlot.MAIN_HAND, sword)
+        val equipment = Equipment().equipWeapon(sword)
 
         val allItems = equipment.getAllItems()
 
@@ -143,8 +143,8 @@ class EquipmentTest {
             armorClassBonus = 2
         )
         val equipment = Equipment()
-            .equipItem(EquipmentSlot.MAIN_HAND, sword)
-            .equipItem(EquipmentSlot.OFF_HAND, shield)
+            .equipWeapon(sword)
+            .equipShield(shield)
 
         val equippedItems = equipment.getEquippedItems()
 
@@ -171,9 +171,9 @@ class EquipmentTest {
             damageDice = DiceType.d8,
             damageType = DamageType.SLASHING
         )
-        val equipment = Equipment().equipItem(EquipmentSlot.MAIN_HAND, sword1)
+        val equipment = Equipment().equipWeapon(sword1)
 
-        val updated = equipment.equipItem(EquipmentSlot.MAIN_HAND, sword2)
+        val updated = equipment.equipWeapon(sword2)
 
         assertEquals("Longsword", updated.mainHand?.name)
     }

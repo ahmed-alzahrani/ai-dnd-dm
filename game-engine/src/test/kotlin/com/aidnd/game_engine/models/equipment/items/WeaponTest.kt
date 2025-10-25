@@ -1,7 +1,6 @@
 package com.aidnd.game_engine.models.equipment.items
 
 import com.aidnd.game_engine.models.equipment.ItemBuffs
-import com.aidnd.game_engine.models.equipment.enums.ItemType
 import com.aidnd.game_engine.models.equipment.enums.WeaponType
 import com.aidnd.game_engine.models.enums.*
 import org.junit.jupiter.api.Test
@@ -27,7 +26,6 @@ class WeaponTest {
         assertEquals(DiceType.d8, sword.damageDice)
         assertEquals(DamageType.SLASHING, sword.damageType)
         assertEquals(WeaponProficiency.MARTIAL, sword.weaponType.proficiency)
-        assertEquals(ItemType.WEAPON, sword.itemType)
         assertNull(sword.buffs)
         assertNull(sword.description)
     }
