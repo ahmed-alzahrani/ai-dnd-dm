@@ -2,7 +2,6 @@ package com.aidnd.game_engine.models.equipment.items
 
 import com.aidnd.game_engine.models.equipment.Item
 import com.aidnd.game_engine.models.equipment.ItemBuffs
-import com.aidnd.game_engine.models.equipment.enums.ItemType
 import com.aidnd.game_engine.models.equipment.enums.ShieldType
 
 data class Shield(
@@ -14,5 +13,5 @@ data class Shield(
     val shieldType: ShieldType,
     val armorClassBonus: Int
 ) : Item {
-    override val itemType = ItemType.SHIELD
+
 }

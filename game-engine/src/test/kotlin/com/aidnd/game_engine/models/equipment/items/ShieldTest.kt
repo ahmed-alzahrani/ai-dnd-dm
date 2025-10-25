@@ -1,6 +1,5 @@
 package com.aidnd.game_engine.models.equipment.items
 
-import com.aidnd.game_engine.models.equipment.enums.ItemType
 import com.aidnd.game_engine.models.equipment.enums.ShieldType
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -20,7 +19,6 @@ class ShieldTest {
         assertEquals("Shield", shield.name)
         assertEquals(ShieldType.SHIELD, shield.shieldType)
         assertEquals(2, shield.armorClassBonus)
-        assertEquals(ItemType.SHIELD, shield.itemType)
     }
 
     @Test

@@ -1,7 +1,6 @@
 package com.aidnd.game_engine.models.equipment.items
 
 import com.aidnd.game_engine.models.equipment.enums.ArmorType
-import com.aidnd.game_engine.models.equipment.enums.ItemType
 import com.aidnd.game_engine.models.enums.ArmorProficiency
 import org.junit.jupiter.api.Test
 import kotlin.test.*
@@ -25,7 +24,6 @@ class ArmorTest {
         assertEquals(11, leather.baseAC)
         assertNull(leather.maxDexBonus) // Unlimited for light armor
         assertFalse(leather.stealthDisadvantage)
-        assertEquals(ItemType.ARMOR, leather.itemType)
     }
 
     @Test

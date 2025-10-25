@@ -4,7 +4,6 @@ import com.aidnd.game_engine.models.enums.ArmorProficiency
 import com.aidnd.game_engine.models.equipment.Item
 import com.aidnd.game_engine.models.equipment.ItemBuffs
 import com.aidnd.game_engine.models.equipment.enums.ArmorType
-import com.aidnd.game_engine.models.equipment.enums.ItemType
 
 data class Armor(
     override val name: String,
@@ -17,6 +16,4 @@ data class Armor(
     val baseAC: Int,
     val maxDexBonus: Int? = null,
     val stealthDisadvantage: Boolean = false
-) : Item {
-    override val itemType = ItemType.ARMOR
-}
+) : Item

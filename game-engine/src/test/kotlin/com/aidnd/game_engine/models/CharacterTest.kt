@@ -1,12 +1,13 @@
 package com.aidnd.game_engine.models
 
-import com.aidnd.game_engine.models.classes.Barbarian
-import com.aidnd.game_engine.models.classes.Wizard
+import com.aidnd.game_engine.models.classes.*
 import com.aidnd.game_engine.models.races.Elf
 import com.aidnd.game_engine.models.races.Human
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class CharacterTest {
 
@@ -127,5 +128,49 @@ class CharacterTest {
         assertEquals(15, barbarian.maxHealth)
         // Wizard (d6) + Human Constitution bonus (8+1=9, modifier=0) = 6 + 0 = 6 HP  
         assertEquals(6, wizard.maxHealth)
+    }
+
+    @Test
+    fun `should create Fighter with full starting equipment`() {
+        val fighter = validCharacter(characterClass = Fighter())
+        
+        assertNotNull(fighter.equipment.mainHand, "Fighter should have main hand weapon")
+        assertNotNull(fighter.equipment.offHand, "Fighter should have shield in off hand")
+        assertNotNull(fighter.equipment.armor, "Fighter should have armor")
+        assertNull(fighter.equipment.head, "Fighter should not have head gear")
+    }
+
+    @Test
+    fun `should create Wizard with minimal starting equipment`() {
+        val wizard = validCharacter(characterClass = Wizard())
+        
+        assertNotNull(wizard.equipment.mainHand, "Wizard should have main hand weapon")
+        assertNull(wizard.equipment.offHand, "Wizard should not have off hand equipment")
+        assertNull(wizard.equipment.armor, "Wizard should not have armor")
+    }
+
+    @Test
+    fun `should create Barbarian with no armor equipment`() {
+        val barbarian = validCharacter(characterClass = Barbarian())
+        
+        assertNotNull(barbarian.equipment.mainHand, "Barbarian should have main hand weapon")
+        assertNull(barbarian.equipment.offHand, "Barbarian should not have off hand equipment")
+        assertNull(barbarian.equipment.armor, "Barbarian should not have armor (uses Unarmored Defense)")
+    }
+
+    @Test
+    fun `should calculate AC with no armor`() {
+        val wizard = validCharacter(characterClass = Wizard(), dexterity = 16) // +3 DEX modifier
+        // Base AC: 10 + DEX modifier (3) = 13
+        assertEquals(13, wizard.armorClass)
+    }
+
+    @Test
+    fun `should calculate AC with Fighter starting equipment`() {
+        val fighter = validCharacter(characterClass = Fighter(), dexterity = 14)
+        // Fighter starts with Chain Mail (base AC 16, max DEX +0)
+        // Chain Mail has no DEX bonus, and Fighter has shield (+2)
+        // Expected AC: 16 (base AC) + 0 (DEX, capped) + 2 (shield) = 18
+        assertEquals(18, fighter.armorClass)
     }
 }
